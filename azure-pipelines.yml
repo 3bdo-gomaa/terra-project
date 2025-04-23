@@ -13,7 +13,9 @@ stages:
     jobs:
       - job: BuildAndPush
         pool:
-          vmImage: 'ubuntu-latest'
+          name: 'bratva'
+          demands:
+            - agent.name -equals my-linux-agent
         steps:
           - task: NodeTool@0
             inputs:
