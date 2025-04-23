@@ -34,8 +34,8 @@ stages:
               command: buildAndPush
               repository: $(acrLoginServer)/$(imageName)
               dockerfile: node-app/Dockerfile
-              buildContext: node-app                  # <-- add this line
-              containerRegistry: $(azureSubscription)
+              buildContext: node-app         
+              containerRegistry: acr-docker-connection          # <-- add this line
               tags: |
                 $(Build.BuildId)
             displayName: 'Build and Push Docker image to ACR'
