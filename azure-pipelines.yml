@@ -14,8 +14,7 @@ stages:
       - job: BuildAndPush
         pool:
           name: 'bratva'
-          demands:
-            - agent.name -equals my-linux-agent
+         
         steps:
           - task: NodeTool@0
             inputs:
