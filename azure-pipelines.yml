@@ -37,6 +37,7 @@ stages:
               buildContext: node-app         
               containerRegistry: acr-docker-connection          # <-- add this line
               tags: |
+                latest
                 $(Build.BuildId)
             displayName: 'Build and Push Docker image to ACR'
   - stage: Deploy
