@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: nodejs-container
-          image: bratvaa.azurecr.io/nodejs-app:latest
+          image: bratvaa.azurecr.io/nodejs-app:<IMAGE_TAG>
           ports:
             - containerPort: 3000
