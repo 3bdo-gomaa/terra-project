@@ -25,6 +25,8 @@ stages:
               npm install
               npm run build
             displayName: 'Build nodejs-app'
+            workingDirectory: node-app
+
 
           - task: Docker@2
             inputs:
