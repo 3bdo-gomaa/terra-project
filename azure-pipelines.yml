@@ -32,6 +32,7 @@ stages:
               command: buildAndPush
               repository: $(acrLoginServer)/$(imageName)
               dockerfile: app/Dockerfile
+              buildContext: app                  # <-- add this line
               containerRegistry: $(azureSubscription)
               tags: |
                 $(Build.BuildId)
