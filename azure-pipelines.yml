@@ -4,7 +4,7 @@ trigger:
       - main
 
 variables:
-  azureSubscription: 'acr-docker-connection'
+  azureSubscription: 'azure-resource-connection'
   acrLoginServer: 'bratvaa.azurecr.io'
   imageName: 'nodejs-app'
   aksResourceGroup: 'devops-nodejs-rg'
