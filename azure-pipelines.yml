@@ -60,8 +60,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                sed -i "s|<IMAGE_TAG>|$(Build.BuildId)|g" k8s/deployment.yaml
-
+                sed -i "s|<IMAGE_TAG>|$(Build.BuildId)|g" terraform/manifests/deployment.yaml
           - task: Kubernetes@1
             displayName: 'Deploy to AKS'
             inputs:
@@ -72,4 +71,4 @@ stages:
               namespace: default
               command: apply
               useConfigurationFile: true
-              configuration: 'terraform/' 
+              configuration: 'terraform/manifests/' 
