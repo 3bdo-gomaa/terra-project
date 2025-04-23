@@ -9,6 +9,8 @@ variables:
   imageName: 'nodejs-app'
   aksResourceGroup: 'devops-nodejs-rg'
   aksClusterName: 'devopsNodejsCluster'
+  imageName: nodejs-app
+
 
 stages:
   - stage: Build
@@ -61,7 +63,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                sed -i "s|latest|$(Build.BuildId)|g" terraform/manifests/deployment.yaml
+                sed -i "s|bratvaa.azurecr.io/nodejs-app:.*|bratvaa.azurecr.io/nodejs-app:$(Build.BuildId)|" terraform/manifests/deployment.yaml
           - task: Kubernetes@1
             displayName: 'Deploy to AKS'
             inputs:
