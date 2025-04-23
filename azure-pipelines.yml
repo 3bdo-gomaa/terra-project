@@ -23,7 +23,6 @@ stages:
 
           - script: |
               npm install
-              npm run build
             displayName: 'Build nodejs-app'
             workingDirectory: node-app
 
