@@ -60,7 +60,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                sed -i "s|<IMAGE_TAG>|$(Build.BuildId)|g" terraform/manifests/deployment.yaml
+                sed -i "s|latest|$(Build.BuildId)|g" terraform/manifests/deployment.yaml
           - task: Kubernetes@1
             displayName: 'Deploy to AKS'
             inputs:
