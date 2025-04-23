@@ -9,8 +9,6 @@ variables:
   imageName: 'nodejs-app'
   aksResourceGroup: 'devops-nodejs-rg'
   aksClusterName: 'devopsNodejsCluster'
-  imageName: nodejs-app
-
 
 stages:
   - stage: Build
