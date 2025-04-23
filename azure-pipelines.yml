@@ -7,6 +7,8 @@ variables:
   azureSubscription: 'acr-docker-connection'
   acrLoginServer: 'bratvaa.azurecr.io'
   imageName: 'nodejs-app'
+  aksResourceGroup: 'devops-nodejs-rg'
+  aksClusterName: 'devopsNodejsCluster'
 
 stages:
   - stage: Build
@@ -37,3 +39,37 @@ stages:
               tags: |
                 $(Build.BuildId)
             displayName: 'Build and Push Docker image to ACR'
+  - stage: Deploy
+    dependsOn: Build
+    jobs:
+      - job: DeployToAKS
+        pool:
+          name: 'bratva'
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az aks get-credentials --resource-group $(aksResourceGroup) --name $(aksClusterName) --overwrite-existing
+            displayName: 'Get AKS Credentials'
+
+          - task: Bash@3
+            displayName: 'Update image tag in deployment.yaml'
+            inputs:
+              targetType: inline
+              script: |
+                sed -i "s|<IMAGE_TAG>|$(Build.BuildId)|g" k8s/deployment.yaml
+
+          - task: Kubernetes@1
+            displayName: 'Deploy to AKS'
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscriptionEndpoint: $(azureSubscription)
+              azureResourceGroup: $(aksResourceGroup)
+              kubernetesCluster: $(aksClusterName)
+              namespace: default
+              command: apply
+              useConfigurationFile: true
+              configuration: 'k8s/' 
