@@ -19,3 +19,5 @@ spec:
           image: bratvaa.azurecr.io/nodejs-app:latest
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+        - name: acr-secret
